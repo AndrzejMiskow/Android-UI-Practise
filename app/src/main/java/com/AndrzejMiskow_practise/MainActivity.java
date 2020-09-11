@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +17,11 @@ public class MainActivity extends AppCompatActivity {
     private Button btnStart;
 
     private RadioGroup radioGroup;
+
+    private ProgressBar progressBar;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +37,29 @@ public class MainActivity extends AppCompatActivity {
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        //will increment the progress bar from 0 to 10 on a new thread
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 10; i++) {
+                    progressBar.incrementProgressBy(10);
+                    //need try catch incase the thread cant do it task
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        //starts the thread
+        thread.start();
 
     }
+
 
     //checks if the checkbox is ticked or not activited by the button.
     public void start (View view){
