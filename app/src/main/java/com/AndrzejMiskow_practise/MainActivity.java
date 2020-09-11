@@ -7,12 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText editText;
     private CheckBox checkBox;
     private Button btnStart;
+
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnStart = (Button) findViewById(R.id.btnStart);
 
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
 
     }
 
@@ -37,5 +42,20 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("it's not Checked");
         }
 
+        //changes the editText field depending on what option is selected
+        int id = radioGroup.getCheckedRadioButtonId();
+        switch (id) {
+            case R.id.rbMale:
+                editText.setText("Male");
+                break;
+            case R.id.rbFemale:
+                editText.setText("Female");
+                break;
+            case R.id.rbOther:
+                editText.setText("Other");
+                break;
+            default:
+                break;
+        }
     }
 }
